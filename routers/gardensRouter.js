@@ -11,11 +11,11 @@ const gardenValidation = Joi.object({
 });
 
 gardensRouter.get("/", async (req, res) => {
-  const { id } = req.query;
+  const { userId } = req.query;
   const allGardensByUser = await prisma.gardens.findMany({
     where: {
       userId: {
-        equals: id,
+        equals: userId,
       },
     },
   });
