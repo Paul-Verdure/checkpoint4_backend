@@ -7,7 +7,7 @@ CREATE TABLE `users` (
   `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `userName` VARCHAR(350) NOT NULL,
   `email` VARCHAR(200) NOT NULL,
-  `password` VARCHAR(355) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   `isAdmin` BOOLEAN NOT NULL
 );
 
