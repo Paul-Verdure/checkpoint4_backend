@@ -10,30 +10,38 @@ const gardenValidation = Joi.object({
   numberOfSpots: Joi.number().required(),
 });
 
+const gardenSpotValidation = Joi.object({
+  sowingDate: Joi.date().required(),
+  harvestDate: Joi.date().required(),
+  plantId: Joi.number().required(),
+});
+
 gardensRouter.get("/", async (req, res) => {
   const { userId } = req.query;
+  const id = parseInt(userId)
   const allGardensByUser = await prisma.gardens.findMany({
     where: {
       userId: {
-        equals: userId,
+        equals: id,
       },
     },
   });
-  res.json(allGardensByUser);
+  res.json(allGardensByUser); 
 });
 
 gardensRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
+  const gardenId = parseInt(id);
   const oneGarden = await prisma.gardens.findUnique({
     where: {
-      id: parseInt(id),
+      id: gardenId,
     },
   });
   return res.json(oneGarden);
 });
 
 gardensRouter.post("/", async (req, res) => {
-  const { userId } = req.query;
+  const { userId } = req.query; 
   const id = parseInt(userId);
 
   const { value, error } = gardenValidation.validate(req.body);
@@ -43,6 +51,7 @@ gardensRouter.post("/", async (req, res) => {
   }
 
   const createdGarden = await prisma.gardens.create({
+    
     data: {
       gardenName: value.gardenName,
       img: value.img,
@@ -96,5 +105,27 @@ gardensRouter.delete("/:id", async (req, res) => {
     return res.status(500).json({ message: `Error deleting garden ${id}` });
   }
 });
+
+gardensRouter.post("/:id", async (req, res) => {
+  const { id } = req.params;
+  const gardenId = parseInt(id);
+
+  const { value, error } = gardenSpotValidation.validate(req.body);
+
+  if (error) {
+    return res.status(400).json(error);
+  }
+
+  const createdGardenSpot = await prisma.gardenSpots.create({
+    data: {
+      sowingDate: value.sowingDate,
+      harvestDate: value.harvestDate,
+      plantId: value.plantId,
+      gardenId: gardenId,
+    },
+  });
+  return res.json(createdGardenSpot);
+});
+
 
 module.exports = gardensRouter;

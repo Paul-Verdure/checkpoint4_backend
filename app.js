@@ -8,12 +8,13 @@ const gardenSpotsRouter = require("./routers/gardenSpotsRouter");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: "*",
+  }));
 app.use(express.json());
 
 app.use("/plants", plantsRouter);
 app.use("/users", usersRouter);
-app.use("/garden", gardensRouter);
-app.use("/gardenSpots", gardenSpotsRouter);
-
+app.use("/gardens", gardensRouter);
+app.use("/gardenspots", gardenSpotsRouter);
 module.exports = app;

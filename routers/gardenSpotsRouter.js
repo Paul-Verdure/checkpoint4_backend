@@ -10,6 +10,11 @@ const gardenSpotValidation = Joi.object({
   plantId: Joi.number().required(),
 });
 
+const gardenSpotUpdate = Joi.object({
+  harvestDate: Joi.date(),
+
+});
+
 gardenSpotsRouter.get("/", async (req, res) => {
   const { gardenId } = req.query;
   const id = parseInt(gardenId)
@@ -25,40 +30,22 @@ gardenSpotsRouter.get("/", async (req, res) => {
 
 gardenSpotsRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
+  const spotId = parseInt(id)
   const oneGardenSpot = await prisma.gardenSpots.findUnique({
     where: {
-      id: parseInt(id),
+      id: spotId,
     },
   });
   return res.json(oneGardenSpot);
 });
 
-gardenSpotsRouter.post("/", async (req, res) => {
-  const { gardenId } = req.query;
-  const id = parseInt(gardenId);
 
-  const { value, error } = gardenSpotValidation.validate(req.body);
-
-  if (error) {
-    return res.status(400).json(error);
-  }
-
-  const createdGardenSpot = await prisma.gardenSpots.create({
-    data: {
-      sowingDate: value.sowingDate,
-      harvestDate: value.harvestDate,
-      plantId: value.plantId,
-      gardenId: id,
-    },
-  });
-  return res.json(createdGardenSpot);
-});
 
 gardenSpotsRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   const spotId = parseInt(id);
 
-  const { value: validSpot, error } = gardenSpotValidation.validate(req.body);
+  const { value: validSpot, error } = gardenSpotUpdate.validate(req.body);
 
   if (error) {
     return res.status(422).json({ message: "Invalid data", error });

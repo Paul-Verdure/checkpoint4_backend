@@ -18,6 +18,17 @@ const loginValidation = Joi.object({
   password: Joi.string().max(255).required(),
 });
 
+
+usersRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const oneUser = await prisma.users.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  return res.json(oneUser);
+});
+
 usersRouter.post("/", async (req, res) => {
   const { value, error } = userValidation.validate(req.body);
 

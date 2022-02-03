@@ -13,8 +13,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userName`, `email`, `password`, `isAdmin`) 
 VALUES 
-  ('greenHand','greenHand@gmail.com', 'potager4Ever', false),
-  ('growItYourself','giy@gmail.com', 'springLover4Life', true);
+  ('greenHand','greenHand@gmail.com', '$argon2i$v=19$m=16,t=2,p=1$YW51VVduc2NuZ1Z4S29SSQ$b/Ec0pA3++9sgpCWA21enA', false),
+  ('growItYourself','giy@gmail.com', '$argon2i$v=19$m=16,t=2,p=1$dmJQNXhwUk1xNHVCSkc0cg$FsIduoanDy+jUEN2wZlvaQ', true);
 
 
 CREATE TABLE `gardens` (
@@ -28,7 +28,8 @@ CREATE TABLE `gardens` (
 
 INSERT INTO `gardens` (`gardenName`, `img`, `numberOfSpots`, `userId`) 
 VALUES 
-  ('springGarden','https://stardewvalleywiki.com/mediawiki/images/b/b1/Dandelion.png', 10, 1);
+  ('Spring Garden','https://stardewvalleywiki.com/mediawiki/images/b/b1/Dandelion.png', 10, 1),
+  ('Fall Garden','https://stardewvalleywiki.com/mediawiki/images/7/75/Scarecrow.png', 5, 1);
 
 
 CREATE TABLE `plants` (
