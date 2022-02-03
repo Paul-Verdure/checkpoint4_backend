@@ -13,7 +13,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userName`, `email`, `password`, `isAdmin`) 
 VALUES 
-  ('greenHand','greenHand@gmail.com', '$argon2i$v=19$m=16,t=2,p=1$YW51VVduc2NuZ1Z4S29SSQ$b/Ec0pA3++9sgpCWA21enA', false),
+  ('Green Hand','greenHand@gmail.com', '$argon2i$v=19$m=16,t=2,p=1$YW51VVduc2NuZ1Z4S29SSQ$b/Ec0pA3++9sgpCWA21enA', false),
   ('growItYourself','giy@gmail.com', '$argon2i$v=19$m=16,t=2,p=1$dmJQNXhwUk1xNHVCSkc0cg$FsIduoanDy+jUEN2wZlvaQ', true);
 
 
